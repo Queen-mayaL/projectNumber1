@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Library Management</h1>
+        <div>
+            <h3>Search Books</h3>
+            <form id="search-books-form">
+                <label for="S-book-name">Book Name:</label>
+                <input type="text" id="S-book-name" placeholder="Enter book name">
+                <label for="S-book-author">Author:</label>
+                <input type="text" id="S-book-author" placeholder="Enter author name">
+                <label for="S-book-year">Publish Year:</label>
+                <input type="number" id="S-book-year" placeholder="Enter publish year">
+
+                <button type="button" id="search-books-button" onclick="fetchBooks()">Search</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Books</h2>
+            <table class="data-table" id="books-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Author</th>
+                        <th>Publish Year</th>
+                        <th>Loaned</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Add New Book</h2>
+            <input class="input-field" id="book-name" type="text" placeholder="Book Name">
+            <input class="input-field" id="book-author" type="text" placeholder="Author">
+            <input class="input-field" id="book-year" type="text" placeholder="Publish Year">
+            <input class="input-field" id="loan-type" type="number" placeholder="Loan Type">
+            <button onclick="addBook()">Add Book</button>
+        </div>
+
+        <div>
+            <h3>Search Customers</h3>
+            <form id="search-customers-form">
+                <label for="customer-first-name">First Name:</label>
+                <input type="text" id="customer-first-name" placeholder="Enter first name">
+
+                <label for="customer-last-name">Last Name:</label>
+                <input type="text" id="customer-last-name" placeholder="Enter last name">
+
+                <label for="customer-email">Email:</label>
+                <input type="text" id="customer-email" placeholder="Enter email">
+
+                <label for="customer-phone-number">Phone Number:</label>
+                <input type="text" id="customer-phone-number" placeholder="Enter phone number">
+
+                <label for="customer-city">City:</label>
+                <input type="text" id="customer-city" placeholder="Enter city">
+
+                <label for="customer-id">Customer ID:</label>
+                <input type="text" id="customer-id" placeholder="Enter customer ID">
+
+                <label for="customer-username">username:</label>
+                <input type="text" id="customer-username" placeholder="Enter username">
+                
+                <label for="update-role">Role:</label>
+                <select id="update-role">
+                    <option value="user">User</option>
+                    <option value="manager">Manager</option>
+                </select>
+
+                <button type="button" id="search-customers-button" onclick="fetchCustomers()">Search</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Customers</h2>
+            <table class="data-table" id="customers-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>city</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>User</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Add New Customer</h2>
+            <input class="input-field" id="first-name" type="text" placeholder="First Name">
+            <input class="input-field" id="last-name" type="text" placeholder="Last Name">
+            <input class="input-field" id="birthDate" type="date" placeholder="Birth Date">
+            <input class="input-field" id="city" type="text" placeholder="City">
+            <input class="input-field" id="email" type="email" placeholder="Email">
+            <input class="input-field" id="phone" type="text" placeholder="Phone Number">
+            <input class="input-field" id="username" type="text" placeholder="Username">
+            <input class="input-field" id="password" type="password" placeholder="Password">
+            <button onclick="addCustomer()">Add Customer</button>
+        </div>
+
+        <div class="card">
+            <h2>Loans</h2>
+            <table class="data-table" id="loans-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Book ID</th>
+                        <th>Customer ID</th>
+                        <th>Loan date</th>
+                        <th>Expected return date</th>
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Late loans</h2>
+            <table class="data-table" id="late-loans-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer ID</th>
+                        <th>Book ID</th>
+                        <th>Loan date</th>
+                        <th>Expected return date</th>
+                        <th>Late days number</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="update-customer-modal" class="modal">
+        <div class="modal-content">
+            <h2>Update Customer</h2>
+            <label for="update-first-name">First Name:</label>
+            <input type="text" id="update-first-name">
+
+            <label for="update-last-name">Last Name:</label>
+            <input type="text" id="update-last-name">
+
+            <label for="update-birthDate">Birth date:</label>
+            <input type="date" id="update-birthDate">
+
+            <label for="update-city">City:</label>
+            <input type="text" id="update-city">
+
+            <label for="update-email">Email:</label>
+            <input type="email" id="update-email">
+
+            <label for="update-phone">Phone Number:</label>
+            <input type="text" id="update-phone">
+
+            <label for="update-username">username:</label>
+            <input type="text" id="update-username">
+
+            <label for="update-role">Role:</label>
+            <select id="update-role">
+                <option value="user">User</option>
+                <option value="manager">Manager</option>
+            </select>
+
+            <button id="save-customer-button" style="display:none;" onclick="saveCustomerChanges()">Save</button>
+            <button onclick="closeUpdateModal()">Cancel</button>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

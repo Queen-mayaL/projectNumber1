@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-gray-100" style="background-color: rgb(109, 95, 76);">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+        <h1 class="text-2xl font-bold text-center mb-4">Login</h1>
+        <form id="login-form" class="space-y-4">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input type="text" id="username" required class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" required class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <button type="button" onclick="login()" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+                Login
+            </button>
+        </form>
+        <p id="message" class="mt-4 text-sm text-red-500 text-center"></p>
+        <div class="mt-6 text-center">
+            <p class="text-gray-600">Don't have an account?</p>
+            <a href="signUp.html" class="text-blue-500 hover:underline">Sign up here</a>
+        </div>
+        <div class="mt-4 text-center">
+            <a href="guestPage.html" class="text-blue-500 hover:underline">Enter as guest</a>
+        </div>
+    </div>
+
+    <script>
+        const apiUrl = "http://127.0.0.1:5000";
+
+        function login() {
+            const formData = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            axios.post(`${apiUrl}/login`, formData)
+                .then(response => {
+                    const { access_token, role, message } = response.data;
+                    document.getElementById('message').innerText = message;
+                    localStorage.setItem('access_token', access_token);
+
+                    if (role === 'manager') {
+                        axios.get(`${apiUrl}/manager`, {
+                            headers: { Authorization: `Bearer ${access_token}` }
+                        }).then(() => {
+                            window.location.href = 'manager_dashboard.html';
+                        }).catch(() => {
+                            alert('Access denied for manager.');
+                        });
+                    } else if (role === 'user') {
+                        axios.get(`${apiUrl}/user`, {
+                            headers: { Authorization: `Bearer ${access_token}` }
+                        }).then(() => {
+                            window.location.href = 'user_dashboard.html';
+                        }).catch(() => {
+                            alert('Access denied for user.');
+                        });
+                    } else {
+                        alert('Unknown role');
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('message').innerText = "Invalid login details.";
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+
+</html>

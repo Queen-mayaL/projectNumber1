@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Watch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Library Management</h1>
+        <div>
+            <h3>Search Books</h3>
+            <form id="search-books-form">
+                <label for="S-book-name">Book Name:</label>
+                <input type="text" id="S-book-name" placeholder="Enter book name">
+                <label for="S-book-author">Author:</label>
+                <input type="text" id="S-book-author" placeholder="Enter author name">
+                <label for="S-book-year">Publish Year:</label>
+                <input type="number" id="S-book-year" placeholder="Enter publish year">
+
+                <button type="button" id="search-books-button" onclick="fetchBooks()">Search</button>
+            </form>
+        </div>
+
+
+        <div class="card">
+            <h2>Books</h2>
+            <table class="data-table" id="books-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Author</th>
+                        <th>Publish Year</th>
+                        <th>Loaned</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+<script>
+    const apiUrl = 'http://127.0.0.1:5000'
+    function fetchBooks() {
+
+        const name = document.getElementById('S-book-name').value;
+        const author = document.getElementById('S-book-author').value;
+        const publishYear = document.getElementById('S-book-year').value;
+
+
+        const searchParams = {};
+        if (name) searchParams.name = name;
+        if (author) searchParams.author = author;
+        if (publishYear) searchParams.publishYear = publishYear;
+
+        let url = `${apiUrl}/guestWatchList`;
+        if (Object.keys(searchParams).length > 0) {
+            url = `${apiUrl}/findBook`;
+        }
+
+        axios.get(url, { params: searchParams })
+            .then(response => {
+                const books = response.data;
+                const booksTableBody = document.querySelector('#books-table tbody');
+                booksTableBody.innerHTML = ''; 
+
+                if (books.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td colspan="6" style="text-align: center;">No books found</td>`;
+                    booksTableBody.appendChild(row);
+                } else {
+                    books.forEach(book => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${book.name}</td>
+                            <td>${book.author}</td>
+                            <td>${book.publishYear}</td>
+                            <td>${book.isLoaned ? 'Yes' : 'No'}</td>`;
+                        booksTableBody.appendChild(row);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching books data:', error);
+            });
+    }
+
+
+    window.onload = function () {
+        fetchBooks();
+    }
+</script>
+
+</html>

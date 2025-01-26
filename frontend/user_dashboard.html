@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My Library</h1>
+
+        <div class="card">
+            <h2>Loaned Books</h2>
+            <table class="data-table" id="books-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Author</th>
+                        <th>Publish Year</th>
+                        <th>Is Late?</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        window.onload = () => {
+
+            const accessToken = localStorage.getItem('access_token');
+
+            axios.get('http://localhost:5000/findCustomersBooks', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            .then(response => {
+                const books = response.data;
+                const table = document.getElementById('books-table').getElementsByTagName('tbody')[0];
+
+   
+                if (books.length === 0) {
+                    const row = table.insertRow();
+                    row.innerHTML = '<td colspan="3">No loaned books found.</td>';
+                    return;
+                }
+
+                books.forEach(book => {
+                    const row = table.insertRow();
+                    row.innerHTML = `
+                        <td>${book.book_name}</td>
+                        <td>${book.author}</td>
+                        <td>${book.publish_year}</td>
+                        <td>${book.isLate}</td>
+                    `;
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching loaned books:', error);
+                alert('An error occurred while fetching loaned books.');
+            });
+        };
+    </script>
+</body>
+</html>

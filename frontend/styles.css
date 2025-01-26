@@ -1,0 +1,153 @@
+/* Main Body */
+body {
+    background-color: #7e6e5b; /* Rich brown background */
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+/* Header */
+h1 {
+    color: #454240; /* Golden brown color for titles */
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Card Design */
+.card {
+    background-color: #ada9a5; /* Warm brown for cards */
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+/* Buttons */
+.card button {
+    background-color: #d27d2a; /* Golden brown for buttons */
+    color: black;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.card button:hover {
+    background-color: #b56b1e; /* Slightly darker golden brown on hover */
+}
+
+/* Table Design */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #bbb;
+    padding: 10px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #5a3d26; /* Darker brown for table headers */
+    color: white;
+}
+
+/* Input Fields */
+.input-field {
+    background-color: #a88870; /* Same brown as card for input fields */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.input-field:focus {
+    outline: none;
+    border: 2px solid #876c52; /* Golden brown focus effect */
+}
+
+#update-customer-modal {
+    display: none; /* Hide by default */
+    position: fixed;
+    top: 50%; /* Center the modal vertically */
+    left: 50%; /* Center the modal horizontally */
+    transform: translate(-50%, -50%); /* Adjust positioning to center properly */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+    background: white;
+    padding: 15px; /* Reduced padding */
+    border-radius: 8px;
+    width: 20%; /* Set the width to 20% (smaller than before) */
+    min-width: 250px; /* Minimum width to avoid it being too small */
+    max-width: 80%; /* Ensure it doesn't exceed 80% of the screen width */
+}
+
+/* Heading Style */
+.modal-content h2 {
+    margin: 0 0 15px; /* Reduced margin */
+    text-align: center;
+    font-size: 1.25rem; /* Smaller font size for the heading */
+    color: #333;
+}
+
+/* Label Style */
+.modal-content label {
+    display: inline-block;
+    width: 100px; /* Smaller label width */
+    margin-bottom: 8px; /* Reduced margin */
+    font-weight: bold;
+    color: #555;
+    font-size: 0.875rem; /* Smaller font size for labels */
+}
+
+/* Input Style */
+.modal-content input {
+    width: calc(100% - 110px); /* Adjusted for smaller labels */
+    padding: 6px; /* Reduced padding */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 12px; /* Reduced margin */
+    font-size: 0.875rem; /* Smaller font size for input fields */
+}
+
+/* Button Style */
+.modal-content button {
+    width: 48%;
+    padding: 8px; /* Reduced padding */
+    font-size: 0.875rem; /* Smaller font size for buttons */
+    color: white;
+    background: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Cancel Button Style */
+.modal-content button:nth-child(2) {
+    background: #dc3545;
+}
+
+/* Button Hover Effect */
+.modal-content button:hover {
+    opacity: 0.9;
+}
