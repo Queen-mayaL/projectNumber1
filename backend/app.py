@@ -12,7 +12,7 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 import re
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:5501"}})
+CORS(app)
 
 # logging.basicConfig(level=logging.INFO)
 # logging.getLogger('sqlalchemy.engine').setLevel(logging.ERROR)

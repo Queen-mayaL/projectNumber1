@@ -1,0 +1,10 @@
+2025-01-28 15:13:28,815 - my log - INFO - Guest watch list accessed
+2025-01-28 15:14:32,375 - my log - INFO - Login endpoint accessed
+2025-01-28 15:14:32,610 - my log - INFO - Login successful for username: rotem
+2025-01-28 15:14:32,621 - my log - INFO - Manager dashboard accessed by username: rotem
+2025-01-28 15:14:32,623 - my log - INFO - Manager dashboard access granted for username: rotem
+2025-01-28 15:14:32,741 - my log - INFO - Fetched 3 customers based on search filters
+2025-01-28 15:14:32,748 - my log - INFO - Fetched all active loans
+2025-01-28 15:14:32,749 - my log - INFO - Fetched all late loans
+2025-01-28 15:14:41,329 - my log - INFO - find book succeded!
+2025-01-28 15:14:46,102 - my log - INFO - find book succeded!
