@@ -12,25 +12,29 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 import re
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:5502"}})
+CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:5501"}})
 
-# logging.basicConfig(
-#     level=logging.INFO,
-#     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-#     handlers=[
-#         logging.FileHandler("app.log"),
-#         logging.StreamHandler()
-#     ]
-# )
-logging.basicConfig(level=logging.WARNING)
-logging.getLogger('sqlalchemy.engine').setLevel(logging.WARNING)
-logging.getLogger('sqlalchemy.orm').setLevel(logging.WARNING)
+# logging.basicConfig(level=logging.INFO)
+# logging.getLogger('sqlalchemy.engine').setLevel(logging.ERROR)
+# logging.getLogger('sqlalchemy.orm').setLevel(logging.ERROR)
+# logging.getLogger('werkzeug').setLevel(logging.ERROR)
+
+logging.basicConfig(
+    filename='app.log',
+    filemode='a',
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
+
+logging.getLogger('sqlalchemy.engine').setLevel(logging.ERROR)
+logging.getLogger('sqlalchemy.orm').setLevel(logging.ERROR)
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("my log")
 
 DATABASE_URL = "sqlite:///library.db"
-engine = create_engine(DATABASE_URL, echo=True, pool_size=10, max_overflow=20, pool_timeout=30)
+engine = create_engine(DATABASE_URL, echo=False, pool_size=10, max_overflow=20, pool_timeout=30)
 SessionLocal = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
 
@@ -766,4 +770,13 @@ def guestWatchList_endpoint():
         for Book in books])
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
+
+
+# for user login:
+    # user = orel
+    # password = Orel123!
+
+# for manager login:
+    # user = rotem
+    # password = Rotem123!
